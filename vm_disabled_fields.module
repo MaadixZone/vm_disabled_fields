@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Contains vm_disabled_fields.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function vm_disabled_fields_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the vm_disabled_fields module.
+    case 'help.page.vm_disabled_fields':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module to prevent some fields to be edited when a machine is created.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function vm_disabled_fields_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  $user = \Drupal::currentUser();
+  if (!$user->hasPermission('administer orders')) {
+    if ($entity_form['#entity_type'] == 'commerce_order_item') {
+      if (isset($entity_form['machine_name_vm'])) {
+        $entity_form['machine_name_vm']['#disabled'] = $entity_form['#op'] != 'add';
+      }
+      if (isset($entity_form['field_user_name_vm']) && $entity_form['#op'] != 'add') {
+        $entity_form['field_user_name_vm']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+      }
+      if (isset($entity_form['field_status']) && $entity_form['#op'] != 'add') {
+        $entity_form['field_status']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+      }
+    }
+  }
+
+}

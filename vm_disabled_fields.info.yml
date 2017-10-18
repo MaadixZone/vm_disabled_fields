@@ -1,0 +1,5 @@
+name: vm_disabled_fields
+type: module
+description: Module to prevent some fields to be edited when a machine is created.
+core: 8.x
+package: Custom

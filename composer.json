@@ -1,0 +1,14 @@
+{
+  "name": "drupal/vm_disabled_fields",
+  "type": "drupal-module",
+  "description": "Module to prevent some fields to be edited when a machine is created.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/vm_disabled_fields",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/vm_disabled_fields",
+    "source": "http://cgit.drupalcode.org/vm_disabled_fields"
+  },
+  "require": { }
+}
